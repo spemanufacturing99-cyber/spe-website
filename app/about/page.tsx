@@ -85,7 +85,7 @@ export default function AboutPage() {
       return id;
     };
 
-    const ids: number[] = [];
+    const ids: NodeJS.Timeout[] = [];
     ids.push(animate(59400, setWorkshopCount, 1200));
     ids.push(animate(22000, setCoveredCount, 1200));
     ids.push(animate(2, setCranesCount, 800));

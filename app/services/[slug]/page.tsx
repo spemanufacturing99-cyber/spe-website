@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, use } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +15,8 @@ type Service = {
   images: string[];
 };
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
+export default function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -52,7 +53,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
     }, 450);
 
     return () => clearTimeout(id);
-  }, [params.slug]);
+  }, [slug]);
 
   return (
     <main className="min-h-screen py-20 bg-gradient-to-b from-gray-50 to-white">
