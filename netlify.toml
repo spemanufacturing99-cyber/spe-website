@@ -4,6 +4,9 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[[plugins]]
+  package = "@netlify/next"
+
 [[headers]]
   for = "/*"
   [headers.values]
