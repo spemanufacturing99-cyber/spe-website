@@ -68,7 +68,7 @@ export default function ContactPage() {
     {
       icon: "📍",
       title: "Address",
-      details: ["123 Manufacturing Ave", "Industrial City, ST 12345", "United States"],
+      details: ["Village Duneke, Ferozpur Road", "Moga (Punjab) - India"],
     },
     {
       icon: "📞",

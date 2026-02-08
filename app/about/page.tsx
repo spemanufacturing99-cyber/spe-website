@@ -132,7 +132,7 @@ export default function AboutPage() {
           >
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
             <p className="text-gray-700 mb-4 leading-relaxed">
-              Satnam Process Engineering, headquartered in Moga, Punjab, is a leading name in fabrication and contracting services with over 20 years of proven expertise. Together with our sister concerns, we have built a strong reputation for delivering high-quality engineering solutions to some of the most reputed organizations across India.
+              Satnam Process Engineering, headquartered at Village Duneke, Ferozpur Road. Moga (Punjab)-India, is a leading name in fabrication and contracting services with over 20 years of proven expertise. Together with our sister concerns, we have built a strong reputation for delivering high-quality engineering solutions to some of the most reputed organizations across India.
             </p>
             <p className="text-gray-700 mb-4 leading-relaxed">
               We are a family-owned proprietary concern with expertise in design, fabrication, erection, and commissioning of industrial projects as per standard codes.

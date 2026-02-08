@@ -16,6 +16,14 @@ export default function ServicesClient({ categories }: { categories: Category[] 
         <p className="text-slate-600 max-w-2xl mx-auto mt-3">Organized by category to help you find the right solution. Click a service to view details.</p>
       </motion.header>
 
+      <motion.div initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-10 max-w-4xl mx-auto bg-white rounded-xl shadow p-6">
+        <h3 className="text-xl font-semibold">Metal fabrication Material</h3>
+        <p className="text-slate-700 mt-3">For over a quarter century, SPE (Satnam Process Engineering) Manufacturing has been providing machining, welding and fabrication services for a wide range of applications in many industries. Our finished products can be found in the transportation, emergency services, aerospace, recreational, electrical, defense, oceanographic and industrial wastewater industries, to name a few. SPE (Satnam Process Engineering) Manufacturing specializes in the machining, welding and fabrication of low- to mid-volume orders, from 10 to 5000 pieces.</p>
+
+        <h4 className="text-lg font-semibold mt-4">Meeting Your Project Requirements</h4>
+        <p className="text-slate-700 mt-2">Here at SPE (Satnam Process Engineering) Manufacturing, we continue to meet the demands of a wide range of industries with high-quality CNC machining, welding, and fabricating / manufacturing services, from components as small as. Our skilled staff has huge, combined experience in design, CNC machining, welding and fabrication.</p>
+      </motion.div>
+
       {/* Category cards */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {categories.map((cat: any, idx: number) => (

@@ -6,17 +6,19 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const products = [
-  { name: "Pen Tips", icon: "✏️", desc: "Premium writing tips" },
-  { name: "Refill Components", icon: "♻️", desc: "Long-lasting refills" },
-  { name: "Metal Barrels", icon: "⚙️", desc: "Durable pen bodies" },
-  { name: "Custom Design", icon: "🎨", desc: "Bespoke solutions" },
+  { name: "All Products", icon: "📦", desc: "View all products", link: "/products" },
+  { name: "Milk Cooling Tanks", icon: "❄️", desc: "Bulk milk cooling solutions", link: "/products/bulk-milk-cooling-tank" },
+  { name: "CIP Tanks", icon: "🧼", desc: "Cleaning in place systems", link: "/products/cip-tanks" },
+  { name: "Conveyors & Silos", icon: "📦", desc: "Material handling systems", link: "/products/conveyors-silos" },
+  { name: "Storage Tankers", icon: "🏭", desc: "Bulk storage solutions", link: "/products/storage-tankers" },
 ];
 
 const services = [
-  { name: "OEM Manufacturing", icon: "🏭", desc: "Custom production" },
-  { name: "Quality Control", icon: "✔️", desc: "98.9% quality rating" },
-  { name: "Design Consulting", icon: "💡", desc: "Expert guidance" },
-  { name: "Global Shipping", icon: "🌍", desc: "50+ countries" },
+  { name: "All Services", icon: "🔧", desc: "View all services", link: "/services" },
+  { name: "Welding", icon: "⚡", desc: "Expert welding services", link: "/services/welding" },
+  { name: "Fabrication", icon: "🛠️", desc: "Custom metal fabrication", link: "/services/fabrication" },
+  { name: "CNC Machining", icon: "⚙️", desc: "Precision machining", link: "/services/cnc-machining" },
+  { name: "Stainless Steel", icon: "✨", desc: "Stainless steel machining", link: "/services/stainless-steel-machining" },
 ];
 
 export default function Header() {
@@ -113,7 +115,7 @@ export default function Header() {
                     {products.map((product, i) => (
                       <motion.a
                         key={product.name}
-                        href="#"
+                        href={product.link}
                         custom={i}
                         variants={itemVariants}
                         initial="hidden"
@@ -167,7 +169,7 @@ export default function Header() {
                     {services.map((service, i) => (
                       <motion.a
                         key={service.name}
-                        href="#"
+                        href={service.link}
                         custom={i}
                         variants={itemVariants}
                         initial="hidden"
@@ -267,7 +269,7 @@ export default function Header() {
                       {products.map((product) => (
                         <a
                           key={product.name}
-                          href="#"
+                          href={product.link}
                           onClick={() => setMobileOpen(false)}
                           className="flex items-start gap-3 px-4 py-2 rounded-lg hover:bg-blue-50 transition"
                         >
@@ -310,7 +312,7 @@ export default function Header() {
                       {services.map((service) => (
                         <a
                           key={service.name}
-                          href="#"
+                          href={service.link}
                           onClick={() => setMobileOpen(false)}
                           className="flex items-start gap-3 px-4 py-2 rounded-lg hover:bg-green-50 transition"
                         >

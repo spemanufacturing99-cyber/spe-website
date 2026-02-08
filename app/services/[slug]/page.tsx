@@ -13,6 +13,26 @@ type Service = {
   features: string[];
   specs: { label: string; value: string }[];
   images: string[];
+  industries?: { title: string; description: string }[];
+  aluminum_series?: { series: string; description: string }[];
+  steel_grades?: { grade: string; description: string }[];
+  equipment?: string[];
+  project_examples?: { client: string; project: string }[];
+  welding_types?: { type: string; description: string }[];
+  certifications?: { cert: string; desc: string }[];
+  advantages?: { title: string; desc: string }[];
+  mig_advantages?: { advantage: string }[];
+  mig_capabilities?: string[];
+  stainless_grades?: { grade: string; desc: string }[];
+  applications?: { industry: string; desc: string }[];
+  certifications_tig?: { cert: string; desc: string }[];
+  tig_materials?: string[];
+  multi_axis_equipment?: { machine: string; specs: string }[];
+  cnc_advantages?: { advantage: string; desc: string }[];
+  manufacturing_capabilities?: string[];
+  stainless_steel_grades_machining?: { series: string; grades: string; desc: string }[];
+  industries_served_machining?: { industry: string; desc: string }[];
+  stainless_benefits?: string[];
 };
 
 export default function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,33 +46,46 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
 
   useEffect(() => {
     setLoading(true);
-    const id = setTimeout(() => {
-      setService({
-        title: "Custom Pressure Vessel Fabrication",
-        excerpt:
-          "End-to-end design, fabrication, testing, and erection of pressure vessels, reactors and storage tanks for critical industrial applications.",
-        longDescription: [
-          "We combine engineering expertise, stringent quality controls, and modern fabrication facilities to deliver bespoke pressure vessels tailored to client needs.",
-          "Our team handles design, material selection, fabrication, NDT, surface treatment, and full commissioning support. Every component is manufactured and tested to meet the highest international standards.",
-        ],
-        features: [
-          "Full turnkey manufacturing",
-          "Material traceability and certified welding",
-          "Advanced NDT (Ultrasonic, RT, MPI)",
-          "In-house machining and surface treatment",
-        ],
-        specs: [
-          { label: "Max Diameter", value: "4.5 m" },
-          { label: "Max Length", value: "18 m" },
-          { label: "Max Weight", value: "20 MT (single piece)" },
-          { label: "Materials", value: "Stainless Steel, Carbon Steel, Duplex" },
-        ],
-        images: ["/the-art-and-science.png", "/precision-metal-chain.png", "/certified-welding.png"],
-      });
-      setLoading(false);
-    }, 450);
-
-    return () => clearTimeout(id);
+    const fetchService = async () => {
+      try {
+        const response = await fetch(`/api/services/${slug}`);
+        if (response.ok) {
+          const data = await response.json();
+          setService(data);
+        } else {
+          // Fallback to hardcoded data for custom-pressure-vessels if API fails
+          if (slug === 'custom-pressure-vessels') {
+            setService({
+              title: "Custom Pressure Vessel Fabrication",
+              excerpt:
+                "End-to-end design, fabrication, testing, and erection of pressure vessels, reactors and storage tanks for critical industrial applications.",
+              longDescription: [
+                "We combine engineering expertise, stringent quality controls, and modern fabrication facilities to deliver bespoke pressure vessels tailored to client needs.",
+                "Our team handles design, material selection, fabrication, NDT, surface treatment, and full commissioning support. Every component is manufactured and tested to meet the highest international standards.",
+              ],
+              features: [
+                "Full turnkey manufacturing",
+                "Material traceability and certified welding",
+                "Advanced NDT (Ultrasonic, RT, MPI)",
+                "In-house machining and surface treatment",
+              ],
+              specs: [
+                { label: "Max Diameter", value: "4.5 m" },
+                { label: "Max Length", value: "18 m" },
+                { label: "Max Weight", value: "20 MT (single piece)" },
+                { label: "Materials", value: "Stainless Steel, Carbon Steel, Duplex" },
+              ],
+              images: ["/the-art-and-science.png", "/precision-metal-chain.png", "/certified-welding.png"],
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching service:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchService();
   }, [slug]);
 
   return (
@@ -174,6 +207,448 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                       {p}
                     </motion.p>
                   ))}
+
+                  {/* Industries Served Section */}
+                  {service.industries && service.industries.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      {service.industries.map((industry, idx) => (
+                        <motion.div
+                          key={industry.title}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{industry.title}:</div>
+                            <div className="text-slate-700">{industry.description}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Aluminum Series Section */}
+                  {service.aluminum_series && service.aluminum_series.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Available Aluminum Series</h4>
+                      {service.aluminum_series.map((alum, idx) => (
+                        <motion.div
+                          key={alum.series}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{alum.series}:</div>
+                            <div className="text-slate-700">{alum.description}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Steel Grades Section */}
+                  {service.steel_grades && service.steel_grades.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Carbon Steel Grades & Specifications</h4>
+                      {service.steel_grades.map((grade, idx) => (
+                        <motion.div
+                          key={grade.grade}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{grade.grade}:</div>
+                            <div className="text-slate-700">{grade.description}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Welding Types Section */}
+                  {service.welding_types && service.welding_types.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Welding Types & Capabilities</h4>
+                      {service.welding_types.map((weld, idx) => (
+                        <motion.div
+                          key={weld.type}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{weld.type}:</div>
+                            <div className="text-slate-700">{weld.description}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Certifications Section */}
+                  {service.certifications && service.certifications.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">AWS Certifications</h4>
+                      {service.certifications.map((cert, idx) => (
+                        <motion.div
+                          key={cert.cert}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">✓</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{cert.cert}:</div>
+                            <div className="text-slate-700">{cert.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Advantages Section */}
+                  {service.advantages && service.advantages.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Advantages</h4>
+                      {service.advantages.map((adv, idx) => (
+                        <motion.div
+                          key={adv.title}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{adv.title}:</div>
+                            <div className="text-slate-700">{adv.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* MIG Advantages Section */}
+                  {service.mig_advantages && service.mig_advantages.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Advantages of MIG Welding</h4>
+                      {service.mig_advantages.map((adv, idx) => (
+                        <motion.div
+                          key={adv.advantage}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div className="text-slate-700">{adv.advantage}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* MIG Capabilities Section */}
+                  {service.mig_capabilities && service.mig_capabilities.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">MIG Welding Capabilities</h4>
+                      {service.mig_capabilities.map((cap, idx) => (
+                        <motion.div
+                          key={cap}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: (idx % 5) * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div className="text-slate-700">{cap}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Stainless Steel Grades Section */}
+                  {service.stainless_grades && service.stainless_grades.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Stainless Steel Grades</h4>
+                      {service.stainless_grades.map((grade, idx) => (
+                        <motion.div
+                          key={grade.grade}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{grade.grade}:</div>
+                            <div className="text-slate-700">{grade.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Applications Section */}
+                  {service.applications && service.applications.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Applications</h4>
+                      {service.applications.map((app, idx) => (
+                        <motion.div
+                          key={app.industry}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{app.industry}:</div>
+                            <div className="text-slate-700">{app.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* TIG Certifications Section */}
+                  {service.certifications_tig && service.certifications_tig.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">AWS TIG Welding Certifications</h4>
+                      {service.certifications_tig.map((cert, idx) => (
+                        <motion.div
+                          key={cert.cert}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">✓</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{cert.cert}:</div>
+                            <div className="text-slate-700">{cert.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* TIG Materials Section */}
+                  {service.tig_materials && service.tig_materials.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">TIG Welding Materials</h4>
+                      {service.tig_materials.map((mat, idx) => (
+                        <motion.div
+                          key={mat}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: (idx % 5) * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div className="text-slate-700">{mat}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Equipment Section */}
+                  {service.equipment && service.equipment.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Custom Manufacturing Equipment</h4>
+                      {service.equipment.map((equip, idx) => (
+                        <motion.div
+                          key={equip}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: (idx % 5) * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div className="text-slate-700">{equip}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Project Examples Section */}
+                  {service.project_examples && service.project_examples.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Project Examples & Applications</h4>
+                      {service.project_examples.map((example, idx) => (
+                        <motion.div
+                          key={example.client}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{example.client}:</div>
+                            <div className="text-slate-700">{example.project}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Multi-Axis Equipment Section */}
+                  {service.multi_axis_equipment && service.multi_axis_equipment.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Multi-Axis CNC Equipment</h4>
+                      {service.multi_axis_equipment.map((equip, idx) => (
+                        <motion.div
+                          key={equip.machine}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{equip.machine}:</div>
+                            <div className="text-slate-700">{equip.specs}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* CNC Advantages Section */}
+                  {service.cnc_advantages && service.cnc_advantages.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">CNC Machining Advantages</h4>
+                      {service.cnc_advantages.map((adv, idx) => (
+                        <motion.div
+                          key={adv.advantage}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{adv.advantage}:</div>
+                            <div className="text-slate-700">{adv.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Manufacturing Capabilities Section */}
+                  {service.manufacturing_capabilities && service.manufacturing_capabilities.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Manufacturing Capabilities</h4>
+                      {service.manufacturing_capabilities.map((cap, idx) => (
+                        <motion.div
+                          key={cap}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: (idx % 5) * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div className="text-slate-700">{cap}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Stainless Steel Machining Grades Section */}
+                  {service.stainless_steel_grades_machining && service.stainless_steel_grades_machining.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Stainless Steel Grades & Alloys</h4>
+                      {service.stainless_steel_grades_machining.map((grade, idx) => (
+                        <motion.div
+                          key={grade.series}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{grade.series}:</div>
+                            <div className="text-slate-700">{grade.grades}</div>
+                            <div className="text-slate-600 text-sm mt-1">{grade.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Industries Served - Machining Section */}
+                  {service.industries_served_machining && service.industries_served_machining.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Industries Served</h4>
+                      {service.industries_served_machining.map((ind, idx) => (
+                        <motion.div
+                          key={ind.industry}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{ind.industry}:</div>
+                            <div className="text-slate-700">{ind.desc}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Stainless Steel Benefits Section */}
+                  {service.stainless_benefits && service.stainless_benefits.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Stainless Steel Benefits</h4>
+                      {service.stainless_benefits.map((benefit, idx) => (
+                        <motion.div
+                          key={benefit}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: (idx % 5) * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div className="text-slate-700">{benefit}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="mt-4 bg-white/5 p-6 rounded-xl shadow-lg">
                     <h4 className="font-semibold mb-3">Testing & Quality</h4>
