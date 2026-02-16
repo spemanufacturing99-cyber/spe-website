@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Clients from "@/components/Clients";
 
 const teamMembers = [
   {
@@ -521,6 +522,9 @@ export default function AboutPage() {
 
 
       {/* ================= CTA ================= */}
+     
+      <Clients />
+      
       <section className="py-20 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

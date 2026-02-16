@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import SupplyChainRisk from "@/components/SupplyChainRisk";
 import QuoteForm from "@/components/QuoteForm";
+import Clients from "@/components/Clients";
 
 function CounterNumber({ end, duration = 2 }: { end: number; duration?: number }) {
   const [count, setCount] = useState(0);
@@ -91,6 +92,8 @@ className="rounded-3xl shadow-2xl object-cover"
 </div>
 </section>
 <SupplyChainRisk />
+
+  <Clients />
 
 {/* PRODUCTS -> INDUSTRIES */}
 <section id="products" className="py-24 relative overflow-hidden">

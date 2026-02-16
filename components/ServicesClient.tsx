@@ -25,7 +25,7 @@ export default function ServicesClient({ categories }: { categories: Category[] 
       </motion.div>
 
       {/* Category cards */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div className="grid sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-12">
         {categories.map((cat: any, idx: number) => (
           <motion.div
             key={cat.id}
