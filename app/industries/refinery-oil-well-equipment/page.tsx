@@ -1,0 +1,1 @@
+export default function refinery_oil_well_equipment() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>Refinery & Oil Well Equipment</h1><p className='mt-3 text-slate-700'>Page for Refinery & Oil Well Equipment under /industries.</p></div></main>); }

@@ -1,0 +1,1 @@
+export default function stainless_steel() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>Stainless Steel</h1><p className='mt-3 text-slate-700'>Page for Stainless Steel under /materials.</p></div></main>); }

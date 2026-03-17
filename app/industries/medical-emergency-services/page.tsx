@@ -1,0 +1,1 @@
+export default function medical_emergency_services() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>Medical & Emergency Services</h1><p className='mt-3 text-slate-700'>Page for Medical & Emergency Services under /industries.</p></div></main>); }

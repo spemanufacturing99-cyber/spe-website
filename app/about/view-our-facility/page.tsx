@@ -1,0 +1,1 @@
+export default function view_our_facility() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>View Our Facility</h1><p className='mt-3 text-slate-700'>Page for View Our Facility under /about.</p></div></main>); }

@@ -124,23 +124,31 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="bg-gradient-to-br from-white to-blue-50 p-4 rounded-xl shadow-sm">
                         <h4 className="font-semibold mb-2">Key Features</h4>
-                        <ul className="list-disc ml-5 text-sm text-slate-700 space-y-2">
-                          {service.features.map((f) => (
-                            <li key={f}>{f}</li>
-                          ))}
-                        </ul>
+                        {service.features && service.features.length > 0 ? (
+                          <ul className="list-disc ml-5 text-sm text-slate-700 space-y-2">
+                            {service.features.map((f) => (
+                              <li key={f}>{f}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-sm text-slate-600">Key features not available yet.</p>
+                        )}
                       </div>
 
                       <div className="bg-gradient-to-br from-white to-blue-50 p-4 rounded-xl shadow-sm">
                         <h4 className="font-semibold mb-2">Typical Specifications</h4>
-                        <div className="text-sm text-slate-700 space-y-2">
-                          {service.specs.map((s) => (
-                            <div key={s.label} className="flex justify-between">
-                              <span className="font-medium">{s.label}</span>
-                              <span className="text-slate-600">{s.value}</span>
-                            </div>
-                          ))}
-                        </div>
+                        {service.specs && service.specs.length > 0 ? (
+                          <div className="text-sm text-slate-700 space-y-2">
+                            {service.specs.map((s) => (
+                              <div key={s.label} className="flex justify-between">
+                                <span className="font-medium">{s.label}</span>
+                                <span className="text-slate-600">{s.value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-sm text-slate-600">Specifications are not available.</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -202,11 +210,15 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                 )}
 
                 <div className="mt-8 space-y-4 text-slate-700">
-                  {service.longDescription.map((p, i) => (
-                    <motion.p key={i} initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i * 0.06 }}>
-                      {p}
-                    </motion.p>
-                  ))}
+                  {service.longDescription && service.longDescription.length > 0 ? (
+                    service.longDescription.map((p, i) => (
+                      <motion.p key={i} initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i * 0.06 }}>
+                        {p}
+                      </motion.p>
+                    ))
+                  ) : (
+                    <p className="text-sm text-slate-600">Service details are being updated. Please check back soon.</p>
+                  )}
 
                   {/* Industries Served Section */}
                   {service.industries && service.industries.length > 0 && (

@@ -1,0 +1,1 @@
+export default function scientific_research() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>Scientific Research</h1><p className='mt-3 text-slate-700'>Page for Scientific Research under /industries.</p></div></main>); }

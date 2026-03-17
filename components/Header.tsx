@@ -5,59 +5,108 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-const products = [
-  { name: "All Products", icon: "📦", desc: "View all products", link: "/products" },
-  { name: "Milk Cooling Tanks", icon: "❄️", desc: "Bulk milk cooling solutions", link: "/products/bulk-milk-cooling-tank" },
-  { name: "CIP Tanks", icon: "🧼", desc: "Cleaning in place systems", link: "/products/cip-tanks" },
-  { name: "Conveyors & Silos", icon: "📦", desc: "Material handling systems", link: "/products/conveyors-silos" },
-  { name: "Storage Tankers", icon: "🏭", desc: "Bulk storage solutions", link: "/products/storage-tankers" },
+const menuStructure = [
+  {
+    title: "About us",
+    path: "/about",
+    children: [
+      { title: "View Our Facility", path: "/about/view-our-facility" },
+      { title: "Pen Tour Video", path: "/about/pen-tour-video" },
+      { title: "New Ownership", path: "/about/new-ownership" },
+      { title: "Quality", path: "/quality" },
+      { title: "Contact us", path: "/contact" },
+    ],
+  },
+  {
+    title: "Services",
+    path: "/services",
+    children: [
+      { title: "Metal Fabrication", path: "/services#fabrication-&-erection" },
+      { title: "Welding", path: "/services#welding-services" },
+      { title: "Sheet Metal", path: "/services#pressure-vessels" },
+      { title: "Machining", path: "/services#machining-services" },
+      { title: "Assembling/Finishing", path: "/services#maintenance-&-support" },
+    ],
+  },
+  {
+    title: "Portfolio",
+    path: "/portfolio",
+    children: [
+      { title: "Machinery Projects", path: "/portfolio/machinery-projects" },
+      { title: "Hyperloop Test Sled", path: "/portfolio/hyperloop-test-sled" },
+      { title: "1000 Holes", path: "/portfolio/1000-holes" },
+      { title: "Angel Stadium of Anaheim", path: "/portfolio/angel-stadium-of-anaheim" },
+      { title: "Bio Boxes & Clarifiers", path: "/portfolio/bio-boxes-clarifiers" },
+      { title: "Biomixers", path: "/portfolio/biomixers" },
+      { title: "Caltech", path: "/portfolio/caltech" },
+      { title: "Grating Project", path: "/portfolio/grating-project" },
+      { title: "Plastic Welder", path: "/portfolio/plastic-welder" },
+      { title: "Rodder", path: "/portfolio/rodder" },
+      { title: "SS Other", path: "/portfolio/ss-other" },
+      { title: "SS Piping & Troughs", path: "/portfolio/ss-piping-troughs" },
+      { title: "SS Products", path: "/portfolio/ss-products" },
+      { title: "SS Tanks", path: "/portfolio/ss-tanks" },
+      { title: "SS Tracks", path: "/portfolio/ss-tracks" },
+      { title: "Stonemills", path: "/portfolio/stonemills" },
+      { title: "Trac Projects", path: "/portfolio/trac-projects" },
+    ],
+  },
+  {
+    title: "Materials",
+    path: "/materials",
+    children: [
+      { title: "Aluminium", path: "/materials/aluminium" },
+      { title: "Aluminium 6061", path: "/materials/aluminium-6061" },
+      { title: "Stainless Steel", path: "/materials/stainless-steel" },
+      { title: "Carbon Steel", path: "/materials/carbon-steel" },
+      { title: "Brass", path: "/materials/brass" },
+      { title: "Bronze", path: "/materials/bronze" },
+      { title: "Plastics", path: "/materials/plastics" },
+    ],
+  },
+  {
+    title: "Industries",
+    path: "/industries",
+    children: [
+      { title: "Aerospace and Defense", path: "/industries/aerospace-and-defense" },
+      { title: "Air Pollution Control", path: "/industries/air-pollution-control" },
+      { title: "Electrical & Electronics", path: "/industries/electrical-electronics" },
+      { title: "Entertainment", path: "/industries/entertainment" },
+      { title: "Hazardous Waste Equipment", path: "/industries/hazardous-waste-equipment" },
+      { title: "Industrial", path: "/industries/industrial" },
+      { title: "Lighting", path: "/industries/lighting" },
+      { title: "Material Handling", path: "/industries/material-handling" },
+      { title: "Medical & Emergency Services", path: "/industries/medical-emergency-services" },
+      { title: "Oceanographic", path: "/industries/oceanographic" },
+      { title: "Printing", path: "/industries/printing" },
+      { title: "Recreational", path: "/industries/recreational" },
+      { title: "Refinery & Oil Well Equipment", path: "/industries/refinery-oil-well-equipment" },
+      { title: "Robotics", path: "/industries/robotics" },
+      { title: "Scientific Research", path: "/industries/scientific-research" },
+      { title: "Sewage Treatment And Disposal", path: "/industries/sewage-treatment-and-disposal" },
+      { title: "Specialty Plastic", path: "/industries/specialty-plastic" },
+      { title: "Transportation", path: "/industries/transportation" },
+      { title: "Wastewater Treatment & Disposal", path: "/industries/wastewater-treatment-disposal" },
+    ],
+  },
+  { title: "Blog", path: "/blog", children: [] },
 ];
 
-const services = [
-  { name: "All Services", icon: "🔧", desc: "View all services", link: "/services" },
-  { name: "Welding", icon: "⚡", desc: "Expert welding services", link: "/services/welding" },
-  { name: "Fabrication", icon: "🛠️", desc: "Custom metal fabrication", link: "/services/fabrication" },
-  { name: "CNC Machining", icon: "⚙️", desc: "Precision machining", link: "/services/cnc-machining" },
-  { name: "Stainless Steel", icon: "✨", desc: "Stainless steel machining", link: "/services/stainless-steel-machining" },
-];
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[&/]/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>({});
 
-  const dropdownVariants = {
-    hidden: { opacity: 0, y: -10, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -10,
-      scale: 0.95,
-      transition: {
-        duration: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -10 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.05,
-        duration: 0.2,
-      },
-    }),
+  const toggleMenu = (key: string) => {
+    setOpenMap((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
@@ -75,139 +124,41 @@ export default function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
-          <Link
-            href="/"
-            className="px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-200"
-          >
-            Home
-          </Link>
-
-          {/* Products Dropdown */}
-          <div className="relative group">
-            <button
-              onClick={() => setProductsOpen(!productsOpen)}
-              onMouseEnter={() => setProductsOpen(true)}
-              onMouseLeave={() => setProductsOpen(false)}
-              className="px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-200 flex items-center gap-2"
-            >
-              Products
-              <motion.span
-                animate={{ rotate: productsOpen ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                ▼
-              </motion.span>
-            </button>
-
-            <AnimatePresence>
-              {productsOpen && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  onMouseEnter={() => setProductsOpen(true)}
-                  onMouseLeave={() => setProductsOpen(false)}
-                  className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden"
+        <nav className="hidden md:flex items-center gap-4 text-sm font-medium">
+          <ul className="flex items-center gap-2">
+            {menuStructure.map((item) => (
+              <li key={item.title} className="relative group">
+                <Link
+                  href={item.path}
+                  className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-slate-700 hover:bg-gray-100 transition text-sm font-medium"
                 >
-                  <div className="p-3 space-y-2">
-                    {products.map((product, i) => (
-                      <motion.a
-                        key={product.name}
-                        href={product.link}
-                        custom={i}
-                        variants={itemVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 transition group"
-                      >
-                        <span className="text-xl">{product.icon}</span>
-                        <div>
-                          <p className="font-semibold text-gray-900 group-hover:text-blue-600 transition">
-                            {product.name}
-                          </p>
-                          <p className="text-xs text-gray-500">{product.desc}</p>
-                        </div>
-                      </motion.a>
-                    ))}
+                  {item.title}
+                  {item.children?.length ? (
+                    <span className="text-xs transform transition-transform duration-200 group-hover:rotate-180">▾</span>
+                  ) : null}
+                </Link>
+                {item.children?.length ? (
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 mt-1 w-72 max-h-72 rounded-xl bg-white border border-gray-200 shadow-xl p-2 z-20 -translate-y-1 overflow-y-auto">
+                    <div className="flex flex-col gap-1">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.title}
+                          href={child.path}
+                          className="block px-2 py-1 rounded-md text-xs md:text-sm text-slate-700 hover:bg-slate-100"
+                        >
+                          {child.title}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Services Dropdown */}
-          <div className="relative group">
-            <button
-              onClick={() => setServicesOpen(!servicesOpen)}
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-              className="px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-200 flex items-center gap-2"
-            >
-              Services
-              <motion.span
-                animate={{ rotate: servicesOpen ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                ▼
-              </motion.span>
-            </button>
-
-            <AnimatePresence>
-              {servicesOpen && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  onMouseEnter={() => setServicesOpen(true)}
-                  onMouseLeave={() => setServicesOpen(false)}
-                  className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden"
-                >
-                  <div className="p-3 space-y-2">
-                    {services.map((service, i) => (
-                      <motion.a
-                        key={service.name}
-                        href={service.link}
-                        custom={i}
-                        variants={itemVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-green-50 transition group"
-                      >
-                        <span className="text-xl">{service.icon}</span>
-                        <div>
-                          <p className="font-semibold text-gray-900 group-hover:text-blue-600 transition">
-                            {service.name}
-                          </p>
-                          <p className="text-xs text-gray-500">{service.desc}</p>
-                        </div>
-                      </motion.a>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <Link
-            href="/about"
-            className="px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-200"
-          >
-            About
-          </Link>
-
-          <Link
-            href="/quality"
-            className="px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-200"
-          >
-            Quality
-          </Link>
+                ) : null}
+              </li>
+            ))}
+          </ul>
 
           <Link
             href="/contact"
-            className="ml-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition duration-300 hover:scale-105"
+            className="ml-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition duration-300 hover:scale-105"
           >
             Get Quote
           </Link>
@@ -242,107 +193,34 @@ export default function Header() {
                 Home
               </Link>
 
-              {/* Mobile Products Dropdown */}
-              <div>
-                <button
-                  onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-                  className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 transition flex items-center justify-between"
-                >
-                  Products
-                  <motion.span
-                    animate={{ rotate: mobileProductsOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+              {menuStructure.map((item) => (
+                <div key={item.title}>
+                  <button
+                    onClick={() => toggleMenu(item.title)}
+                    className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 transition flex items-center justify-between"
                   >
-                    ▼
-                  </motion.span>
-                </button>
-
-                <AnimatePresence>
-                  {mobileProductsOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="pl-4 space-y-2 mt-2 overflow-hidden"
-                    >
-                      {products.map((product) => (
-                        <a
-                          key={product.name}
-                          href={product.link}
+                    {item.title}
+                    {item.children?.length ? (
+                      <span className="text-sm">{openMap[item.title] ? "▲" : "▼"}</span>
+                    ) : null}
+                  </button>
+                  {item.children?.length && openMap[item.title] ? (
+                    <div className="pl-4 pb-2">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.title}
+                          href={child.path}
                           onClick={() => setMobileOpen(false)}
-                          className="flex items-start gap-3 px-4 py-2 rounded-lg hover:bg-blue-50 transition"
+                          className="block px-4 py-2 rounded-lg text-sm text-slate-700 hover:bg-gray-100"
                         >
-                          <span className="text-lg">{product.icon}</span>
-                          <div>
-                            <p className="font-semibold text-gray-900">{product.name}</p>
-                            <p className="text-xs text-gray-500">{product.desc}</p>
-                          </div>
-                        </a>
+                          {child.title}
+                        </Link>
                       ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                    </div>
+                  ) : null}
+                </div>
+              ))}
 
-              {/* Mobile Services Dropdown */}
-              <div>
-                <button
-                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                  className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 transition flex items-center justify-between"
-                >
-                  Services
-                  <motion.span
-                    animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    ▼
-                  </motion.span>
-                </button>
-
-                <AnimatePresence>
-                  {mobileServicesOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="pl-4 space-y-2 mt-2 overflow-hidden"
-                    >
-                      {services.map((service) => (
-                        <a
-                          key={service.name}
-                          href={service.link}
-                          onClick={() => setMobileOpen(false)}
-                          className="flex items-start gap-3 px-4 py-2 rounded-lg hover:bg-green-50 transition"
-                        >
-                          <span className="text-lg">{service.icon}</span>
-                          <div>
-                            <p className="font-semibold text-gray-900">{service.name}</p>
-                            <p className="text-xs text-gray-500">{service.desc}</p>
-                          </div>
-                        </a>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <Link
-                onClick={() => setMobileOpen(false)}
-                href="/about"
-                className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition"
-              >
-                About
-              </Link>
-
-              <Link
-                onClick={() => setMobileOpen(false)}
-                href="/blog"
-                className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition"
-              >
-                Blog
-              </Link>
 
               <Link
                 onClick={() => setMobileOpen(false)}
