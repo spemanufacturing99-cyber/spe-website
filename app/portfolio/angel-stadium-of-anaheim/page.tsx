@@ -1,1 +1,0 @@
-export default function angel_stadium_of_anaheim() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>Angel Stadium of Anaheim</h1><p className='mt-3 text-slate-700'>Page for Angel Stadium of Anaheim under /portfolio.</p></div></main>); }

@@ -1,1 +1,0 @@
-export default function rodder() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>Rodder</h1><p className='mt-3 text-slate-700'>Page for Rodder under /portfolio.</p></div></main>); }

@@ -1,1 +1,0 @@
-export default function biomixers() { return (<main className='min-h-screen p-8'><div className='max-w-4xl mx-auto'><h1 className='text-3xl font-bold'>Biomixers</h1><p className='mt-3 text-slate-700'>Page for Biomixers under /portfolio.</p></div></main>); }
