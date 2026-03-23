@@ -17,11 +17,13 @@ type PortfolioInput = {
   tags: string;
 };
 
-type PortfolioEntry = Omit<PortfolioInput, "metrics"> & { 
+type PortfolioEntry = Omit<PortfolioInput, "metrics" | "bullets" | "tags"> & { 
   _id: string; 
   createdAt: string; 
   updatedAt: string;
   metrics: { label: string; value: string }[];
+  bullets: string[];
+  tags: string[];
 };
 
 type MaterialInput = {
@@ -192,9 +194,9 @@ export default function AdminPage() {
       solution: entry.solution,
       result: entry.result,
       metrics: (entry.metrics || []).map((m) => `${m.label}: ${m.value}`).join("; "),
-      bullets: (entry.bullets || []).join("; "),
+      bullets: Array.isArray(entry.bullets) ? entry.bullets.join("; ") : (entry.bullets || ""),
       heroImage: entry.heroImage || initialState.heroImage,
-      tags: (entry.tags || []).join(", "),
+      tags: Array.isArray(entry.tags) ? entry.tags.join(", ") : (entry.tags || ""),
     });
     setMessage(null);
     setError(null);
