@@ -502,8 +502,18 @@ const services = [
     category: 'Fabrication & Erection',
     excerpt: 'Custom precision stainless steel fabrication with modern CNC machining, welding, assembly, and finishing capabilities.',
     longDescription: [
-      'SPE (Satnam Process Engineering) Manufacturing\'s home in Punjab, India makes it an ideal firm to manage any of our customers\' stainless steel fabrication needs. With modern in-house CNC machining capabilities, welding stations, and hundreds of combined years of experience taking designs and creating custom precision parts and massive engineered structures, SPE is able to sheet cut, weld, assemble, and finish any stainless steel fabrication project to precise standards for a wide variety of industries.',
-      'Stainless steel is particularly suitable for fabrications requiring great mechanical strength, high corrosion-resistance, low maintenance, and the material\'s natural appearance. As one of the most comprehensive manufacturing firms of its kind, SPE brings value-added experience and resources to projects as small as a hand and as large as one can imagine.'
+      'SPE (Satnam Process Engineering) Manufacturing\'s home in Punjab India makes it an ideal firm to manage any of our customers\' stainless steel fabrication needs. With modern in-house CNC machining capabilities, welding stations, and hundreds of combined years of experience taking designs and creating custom precision parts and massive engineered structures, SPE (Satnam Process Engineering) Manufacturing is able to sheet cutting, weld, assemble, and finish any stainless steel fabrication project to precise standards for a wide variety of industries, specializing in custom stainless steel fabrication.',
+      'Stainless steel is particularly suitable for fabrications requiring great mechanical strength, high corrosion-resistance, low maintenance, and the material\'s natural appearance. As one of the most comprehensive manufacturing firms of its kind, SPE (Satnam Process Engineering) Manufacturing brings value-added experience and resources to projects as small as a hand and as large as one can imagine.',
+      'Stainless Steels We Work With',
+      'We are capable of building, bending, punching, welding, and configuring several alloys of stainless steel (including 304L, 316L, and 17-4 stainless steels) into a variety of shapes, such as channel, bar, sheet, angle, plate, and tubing.',
+      'Industries We Serve',
+      'SPE (Satnam Process Engineering) Manufacturing has the resources and experience to handle requests of all sizes and quantities. Utilize us in your stainless steel supply chain manufacturing process to simplify and optimize your stainless steel fabrication product or project. We have provided supply chain support to a wide variety of industries. Some previous projects at SPE (Satnam Process Engineering) Manufacturing utilizing stainless steel fabrication include:'
+    ],
+    industries: [
+      {title: 'Transportation Industry', description: 'Various assemblies are used inside of railcars for collecting liquid waste are made using light gauge stainless steel sheet metal.'},
+      {title: 'Wastewater Industry', description: 'Due to its corrosion-resistant properties, stainless steel assemblies are used throughout the wastewater industry.'},
+      {title: 'Clean Water Industry', description: 'Process piping components and stainless steel structures are used to hold the components assembled in plants that create clean water.'},
+      {title: 'Building Components', description: 'Stainless steel base plates are used as foundations for building projects.'}
     ],
     features: [
       'Modern in-house CNC machining capabilities',

@@ -220,27 +220,7 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                     <p className="text-sm text-slate-600">Service details are being updated. Please check back soon.</p>
                   )}
 
-                  {/* Industries Served Section */}
-                  {service.industries && service.industries.length > 0 && (
-                    <div className="mt-6 space-y-3">
-                      {service.industries.map((industry, idx) => (
-                        <motion.div
-                          key={industry.title}
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.4, delay: idx * 0.1 }}
-                          viewport={{ once: true }}
-                          className="flex gap-3"
-                        >
-                          <div className="text-blue-600 font-bold mt-1">•</div>
-                          <div>
-                            <div className="font-semibold text-slate-900">{industry.title}:</div>
-                            <div className="text-slate-700">{industry.description}</div>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
+                 
 
                   {/* Aluminum Series Section */}
                   {service.aluminum_series && service.aluminum_series.length > 0 && (
@@ -662,9 +642,32 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                     </div>
                   )}
 
-                  <div className="mt-4 bg-white/5 p-6 rounded-xl shadow-lg">
+                   {/* Industries Served Section */}
+                  {service.industries && service.industries.length > 0 && (
+                    <div className="mt-6 space-y-3">
+                      <h4 className="font-semibold text-slate-900 mb-3">Industries Served</h4>
+                      {service.industries.map((industry, idx) => (
+                        <motion.div
+                          key={industry.title}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: idx * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex gap-3"
+                        >
+                          <div className="text-blue-600 font-bold mt-1">•</div>
+                          <div>
+                            <div className="font-semibold text-slate-900">{industry.title}:</div>
+                            <div className="text-slate-700">{industry.description}</div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="mt-4 bg-white/5 p-6 rounded-xl shadow-lg hidden">
                     <h4 className="font-semibold mb-3">Testing & Quality</h4>
-                    <p className="text-slate-200">Radiography, Ultrasonic Testing, Hydro-testing and documented NDT reports are standard for critical equipment.</p>
+                    <p className="">Radiography, Ultrasonic Testing, Hydro-testing and documented NDT reports are standard for critical equipment.</p>
                   </div>
 
                   <div className="mt-4 grid md:grid-cols-3 gap-4">

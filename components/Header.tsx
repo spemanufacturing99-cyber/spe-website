@@ -5,7 +5,13 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-const menuStructure = [
+type MenuItem = {
+  title: string;
+  path: string;
+  children?: MenuItem[];
+};
+
+const menuStructure: MenuItem[] = [
   {
     title: "About us",
     path: "/about",
@@ -21,11 +27,48 @@ const menuStructure = [
     title: "Services",
     path: "/services",
     children: [
-      { title: "Metal Fabrication", path: "/services#fabrication-&-erection" },
-      { title: "Welding", path: "/services#welding-services" },
-      { title: "Sheet Metal", path: "/services#pressure-vessels" },
-      { title: "Machining", path: "/services#machining-services" },
-      { title: "Assembling/Finishing", path: "/services#maintenance-&-support" },
+      {
+        title: "Welding",
+        path: "/services",
+        children: [
+          { title: "TIG Welding", path: "/services/tig-welding" },
+          { title: "Welding Services", path: "/services/welding-services" },
+          { title: "Stainless Steel Welding", path: "/services/stainless-steel-welding" },
+        ],
+      },
+      {
+        title: "Fabrication & Erection",
+        path: "/services",
+        children: [
+          { title: "Structural Fabrication", path: "/services/structural-fabrication" },
+          { title: "Structural Steel Fabrication", path: "/services/structural-steel-fabrication" },
+          { title: "Carbon Steel Fabrication", path: "/services/carbon-steel-fabrication" },
+        ],
+      },
+      {
+        title: "Machining Services",
+        path: "/services",
+        children: [
+          { title: "Stainless Steel Machining", path: "/services/stainless-steel-machining" },
+          { title: "CNC Machining", path: "/services/cnc-machining" },
+        ],
+      },
+      {
+        title: "Assembling & Finishing",
+        path: "/services",
+        children: [
+          { title: "Assembly & Finishing", path: "/services#maintenance-&-support" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Products",
+    path: "/products",
+    children: [
+      { title: "Storage Tankers & Silos", path: "/products/storage-tankers-silos" },
+      { title: "Road Milk Tankers", path: "/products/road-milk-tankers" },
+      { title: "Hygienic Doors & Shoe Racks", path: "/products/hygienic-doors-racks" },
     ],
   },
   {
@@ -138,16 +181,33 @@ export default function Header() {
                   ) : null}
                 </Link>
                 {item.children?.length ? (
-                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 mt-1 w-72 max-h-72 rounded-xl bg-white border border-gray-200 shadow-xl p-2 z-20 -translate-y-1 overflow-y-auto">
-                    <div className="flex flex-col gap-1">
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 mt-1 w-80 max-h-96 rounded-xl bg-white border border-gray-200 shadow-xl p-4 z-20 -translate-y-1 overflow-y-auto">
+                    <div className="grid grid-cols-1 gap-4">
                       {item.children.map((child) => (
-                        <Link
-                          key={child.title}
-                          href={child.path}
-                          className="block px-2 py-1 rounded-md text-xs md:text-sm text-slate-700 hover:bg-slate-100"
-                        >
-                          {child.title}
-                        </Link>
+                        child.children?.length ? (
+                          <div key={child.title} className="space-y-2">
+                            <div className="text-sm font-semibold text-slate-900 px-2">{child.title}</div>
+                            <div className="space-y-1">
+                              {child.children.map((sub) => (
+                                <Link
+                                  key={sub.title}
+                                  href={sub.path}
+                                  className="block px-2 py-1 rounded-md text-xs md:text-sm text-slate-700 hover:bg-slate-100"
+                                >
+                                  {sub.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <Link
+                            key={child.title}
+                            href={child.path}
+                            className="block px-2 py-1 rounded-md text-xs md:text-sm text-slate-700 hover:bg-slate-100"
+                          >
+                            {child.title}
+                          </Link>
+                        )
                       ))}
                     </div>
                   </div>
@@ -205,16 +265,34 @@ export default function Header() {
                     ) : null}
                   </button>
                   {item.children?.length && openMap[item.title] ? (
-                    <div className="pl-4 pb-2">
+                    <div className="pl-4 pb-2 space-y-2">
                       {item.children.map((child) => (
-                        <Link
-                          key={child.title}
-                          href={child.path}
-                          onClick={() => setMobileOpen(false)}
-                          className="block px-4 py-2 rounded-lg text-sm text-slate-700 hover:bg-gray-100"
-                        >
-                          {child.title}
-                        </Link>
+                        child.children?.length ? (
+                          <div key={child.title} className="space-y-1">
+                            <div className="px-4 py-2 text-sm font-semibold text-slate-900">{child.title}</div>
+                            <div className="space-y-1">
+                              {child.children.map((sub) => (
+                                <Link
+                                  key={sub.title}
+                                  href={sub.path}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="block px-4 py-2 rounded-lg text-sm text-slate-700 hover:bg-gray-100"
+                                >
+                                  {sub.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <Link
+                            key={child.title}
+                            href={child.path}
+                            onClick={() => setMobileOpen(false)}
+                            className="block px-4 py-2 rounded-lg text-sm text-slate-700 hover:bg-gray-100"
+                          >
+                            {child.title}
+                          </Link>
+                        )
                       ))}
                     </div>
                   ) : null}
