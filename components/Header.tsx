@@ -16,7 +16,7 @@ const menuStructure: MenuItem[] = [
     title: "About us",
     path: "/about",
     children: [
-      { title: "View Our Facility", path: "/about/view-our-facility" },
+      { title: "View Our Facility", path: "/about" },
       { title: "Pen Tour Video", path: "/about/pen-tour-video" },
       { title: "New Ownership", path: "/about/new-ownership" },
       { title: "Quality", path: "/quality" },

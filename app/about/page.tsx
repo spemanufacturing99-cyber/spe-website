@@ -10,25 +10,21 @@ const teamMembers = [
     name: "John Anderson",
     role: "CEO & Founder",
     bio: "20+ years of experience in precision manufacturing",
-    image: "/certified-welding.png",
   },
   {
     name: "Sarah Mitchell",
     role: "Chief Technology Officer",
     bio: "Expert in advanced manufacturing processes",
-    image: "/the-art-and-science.png",
   },
   {
     name: "Michael Chen",
     role: "Quality Assurance Director",
     bio: "Dedicated to maintaining our 98.9% quality rating",
-    image: "/precision-metal-chain.png",
   },
   {
     name: "Emma Rodriguez",
     role: "OEM Solutions Manager",
     bio: "Specializes in custom pen design and manufacturing",
-    image: "/certified-welding.png",
   },
 ];
 
@@ -158,7 +154,54 @@ export default function AboutPage() {
         </div>
       </section>
 
-            {/* ================= INFRASTRUCTURE ================= */}
+      {/* ================= MANAGEMENT TEAM ================= */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <p className="text-sm uppercase tracking-[0.3em] text-blue-600 font-semibold">Leadership</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4">Management Team</h2>
+            <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+              Meet the leadership team guiding Satnam Process Engineering with deep industry experience and operational excellence.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
+              >
+                <div className="flex h-60 items-center justify-center bg-gradient-to-br from-slate-100 via-slate-200 to-slate-100">
+                  <div className="flex h-32 w-32 items-center justify-center rounded-full bg-slate-800 text-4xl font-bold text-white shadow-lg">
+                    {member.name
+                      .split(" ")
+                      .map((part) => part[0])
+                      .slice(0, 2)
+                      .join("")}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-slate-900">{member.name}</h3>
+                  <p className="text-blue-600 font-medium mt-1">{member.role}</p>
+                  <p className="mt-4 text-slate-600 text-sm leading-relaxed">{member.bio}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= INFRASTRUCTURE ================= */}
       <section className="py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -500,14 +543,14 @@ export default function AboutPage() {
                 whileHover={{ y: -8 }}
                 className="bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition-shadow"
               >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="flex h-48 items-center justify-center bg-slate-100">
+                  <div className="flex h-28 w-28 items-center justify-center rounded-full bg-slate-800 text-4xl font-bold text-white shadow-lg">
+                    {member.name
+                      .split(" ")
+                      .map((part) => part[0])
+                      .slice(0, 2)
+                      .join("")}
+                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold mb-1">{member.name}</h3>

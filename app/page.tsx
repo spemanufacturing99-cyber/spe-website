@@ -213,63 +213,10 @@ className="rounded-3xl shadow-2xl object-cover"
       </section>
 
       {/* ================= SERVICES (improved) ================= */}
-      <section className="py-24 relative overflow-hidden">
-        {/* Parallax Background */}
-        <div className="absolute inset-0 -z-10">
-          <div
-            className="absolute inset-0 opacity-50"
-            style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1581090700227-1e37b190418e')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundAttachment: "fixed",
-            }}
-          ></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="relative rounded-xl overflow-hidden shadow-2xl h-96">
-              <Image src="/the-art-and-science.png" alt="Services overview" fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-
-              <div className="absolute left-6 bottom-6 flex items-center gap-4">
-                <div className="bg-white/90 text-slate-900 px-4 py-3 rounded-lg shadow">Precision Manufacturing</div>
-                <Link href="#RequestaQuote" className="hidden sm:inline-block bg-blue-600 text-white px-4 py-3 rounded-lg shadow">Request Quote</Link>
-              </div> 
-
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-              <h2 className="text-3xl font-bold mb-3">Our Services</h2>
-              <p className="text-slate-600 mb-6 max-w-xl">We design and manufacture precision components and assemblies across core disciplines. Click a service to learn more or request a quote.</p>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  { title: "Metal Fabrication", desc: "Structural and custom fabrication for industrial projects.", image: "/precision-metal-chain.png" },
-                  { title: "Welding Services", desc: "Certified welding, MIG/TIG, and specialist procedures.", image: "/certified-welding.png" },
-                  { title: "CNC Machining", desc: "Precision turning, milling and high-tolerance components.", image: "/the-art-and-science.png" },
-                ].map((s, idx) => (
-                  <motion.a key={s.title} href="/services" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: idx * 0.06 }} whileHover={{ y: -6 }} className="group bg-white p-6 rounded-xl shadow hover:shadow-lg cursor-pointer overflow-hidden block">
-                      <div className="relative h-36 rounded-lg overflow-hidden mb-4">
-                        <Image src={s.image} alt={s.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                      </div>
-                      <h3 className="font-semibold text-lg">{s.title}</h3>
-                      <p className="text-sm text-slate-600 mt-2">{s.desc}</p>
-                    </motion.a>
-                ))} 
-              </div>
-
-              <div className="mt-6">
-                <Link href="/services" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-700 transition">View All Services</Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+    
 
       {/* ================= VIDEO SECTION ================= */}
-      <section className="py-24 bg-white">
+      <section  className="py-24 bg-white hidden">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-4">
             See Our Manufacturing Process in Action
