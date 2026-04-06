@@ -117,7 +117,7 @@ className="rounded-3xl shadow-2xl object-cover"
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { name: 'Oil & Gas', image: '/precision-metal-chain.png' },
-              { name: 'Chemical & Petrochemical', image: '/certified-welding.png' },
+              { name: 'Chemical & Petrochemical', image: '/precision-crafted.png' },
               { name: 'Food & Beverage', image: '/the-art-and-science.png' },
               { name: 'Pharmaceutical', image: '/precision-metal-chain.png' },
               { name: 'Power & Energy', image: '/certified-welding.png' },
