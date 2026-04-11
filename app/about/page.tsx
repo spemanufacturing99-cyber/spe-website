@@ -109,17 +109,18 @@ export default function AboutPage() {
           className="max-w-5xl mx-auto px-4 text-center relative z-10"
         >
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-            About <span className="text-blue-400">Satnam Process Engineering</span>
+            Overview <br/> <span className="text-blue-400">Satnam Process Engineering</span>
           </h1>
+
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Four decades of precision, passion, and excellence in manufacturing.
+            Along with M/s Satnam Engineering Services, M/s Satnam Services, and M/s Satnam Fabtech
           </p>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">Along with M/s Satnam Engineering Services, M/s Satnam Services, and M/s Satnam Fabtech</p>
         </motion.div>
       </section>
+     
 
-      {/* ================= COMPANY STORY ================= */}
-      <section className="py-24 bg-white">
+      {/* ================= MD MESSAGE ================= */}
+    <section className="py-24 bg-slate-50">
         <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -127,14 +128,13 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-6">Our Story</h2>
+            <h2 className="text-3xl font-bold mb-6">MD’s Message</h2>
             <p className="text-gray-700 mb-4 leading-relaxed">
-              Satnam Process Engineering, headquartered at Village Duneke, Ferozpur Road. Moga (Punjab)-India, is a leading name in fabrication and contracting services with over 20 years of proven expertise. Together with our sister concerns, we have built a strong reputation for delivering high-quality engineering solutions to some of the most reputed organizations across India.
+              Satnam Process Engineering (Along with M/s Satnam Engineering Services, M/s Satnam Services, and M/s Satnam Fabtech) is headquartered in Moga, Punjab, and is a leading name in fabrication and contracting services with over 20 years of proven expertise. Together with our sister concerns, we have built a strong reputation for delivering high-quality engineering solutions to some of the most reputed organizations across India.
             </p>
             <p className="text-gray-700 mb-4 leading-relaxed">
               We are a family-owned proprietary concern with expertise in design, fabrication, erection, and commissioning of industrial projects as per standard codes.
             </p>
-            
           </motion.div>
 
           <motion.div
@@ -142,15 +142,69 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative h-96"
+            className="rounded-3xl overflow-hidden border border-slate-200 bg-white p-8 shadow-sm"
           >
-            <Image
-              src="/precision-metal-chain.png"
-              alt="Manufacturing facility"
-              fill
-              className="rounded-xl object-cover shadow-2xl"
-            />
+            <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-slate-200 shadow-inner">
+              <Image
+                src="/md-photo-placeholder.jpg"
+                alt="MD photo"
+                fill
+                className="object-cover"
+              />
+            </div>
+           
           </motion.div>
+        </div>
+      </section>
+
+      {/* ================= CERTIFICATION ================= */}
+      <section className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <p className="text-sm uppercase tracking-[0.3em] text-blue-600 font-semibold">Certification</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4">ISO 9001:2015 Quality Management</h2>
+            <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+              Satnam Process Engineering has been assessed by RAPL and certified for an ISO 9001:2015 Quality Management System for design, fabrication, erection, and commissioning of industrial projects.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-12 md:grid-cols-2 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <p className="text-slate-700 leading-relaxed">
+                Our certification reflects the highest standards in quality management for manufacturing and supply of pharmaceutical vessels, chemical vessels, dairy vessels, brewery vessels, stainless steel insulated tankers, bulk milk cooling units, milk silos, road milk tankers, drying chambers, cyclone and power silo systems.
+              </p>
+              <p className="text-slate-700 leading-relaxed">
+                This certification underscores our commitment to process excellence, safety, and customer satisfaction across all fabrication and contracting services.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative h-96 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm"
+            >
+              <Image
+                src="/certification.jpeg"
+                alt="ISO 9001 certification"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -337,7 +391,7 @@ export default function AboutPage() {
       </section>
 
       {/* ================= TIMELINE ================= */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white hidden">
         <div className="max-w-5xl mx-auto px-4">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -393,9 +447,9 @@ export default function AboutPage() {
 
     
 
-      {/* ================= INDUSTRIES ================= */}
+      {/* ================= BUSINESS VERTICALS ================= */}
       <section className="py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -403,36 +457,130 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
-            <p className="text-slate-300 max-w-2xl mx-auto">We partner with organizations across diverse sectors to deliver tailored engineering solutions.</p>
+            <h2 className="text-3xl font-bold mb-4">Business Verticals</h2>
+            <p className="text-slate-300 max-w-2xl mx-auto">We provide engineered vessels, process equipment, and turnkey systems for key industrial segments.</p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {[
-              { name: 'Oil & Gas', image: '/precision-metal-chain.png' },
-              { name: 'Chemical & Petrochemical', image: '/certified-welding.png' },
-              { name: 'Food & Beverage', image: '/the-art-and-science.png' },
-              { name: 'Pharmaceutical', image: '/precision-metal-chain.png' },
-              { name: 'Power & Energy', image: '/certified-welding.png' },
-            ].map((industry, i) => (
-              <motion.div
-                key={industry.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.08 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.03 }}
-                className="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform"
-              >
-                <div className="relative h-36">
-                  <Image src={industry.image} alt={industry.name} fill className="object-cover opacity-80" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="space-y-8">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Business Verticals</h3>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {[
+                    'Beverage Industry',
+                    'Dairy Industry',
+                    'Food Industry',
+                    'Pharmaceutical Industry',
+                    'Chemical Industry',
+                    'Waste Water Treatment',
+                    'Sugar Industry',
+                    'Paint Industry',
+                  ].map((vertical) => (
+                    <div key={vertical} className="rounded-2xl bg-slate-950/80 px-4 py-3 text-sm font-medium">
+                      {vertical}
+                    </div>
+                  ))}
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{industry.name}</h3>
-                </div>
-              </motion.div>
-            ))}
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Beverage Industry</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>Blending Vessel</li>
+                  <li>CIP Vessels</li>
+                  <li>Holding Vessel</li>
+                  <li>Lauter Tun</li>
+                  <li>Mash-Tun Vessel</li>
+                  <li>Mixing Vessel</li>
+                  <li>Process Vessel</li>
+                  <li>Skid Units etc.</li>
+                </ul>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Dairy Industry</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>Storage Vessel</li>
+                  <li>CIP Vessel</li>
+                  <li>Cream Vessel</li>
+                  <li>Cheese Vats</li>
+                  <li>Cooking Vessel</li>
+                  <li>Dyers</li>
+                  <li>Powder Hopper</li>
+                  <li>Skid Units</li>
+                  <li>Silos etc.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Food Industry</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>Storage Vessel</li>
+                  <li>CIP Vessel</li>
+                  <li>Cooking Vessel</li>
+                  <li>Dyers</li>
+                  <li>Powder Hopper</li>
+                  <li>Sauce Mix Vessel</li>
+                  <li>Skid Units</li>
+                  <li>Silos etc.</li>
+                </ul>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Pharmaceutical Industry</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>IP Vessel</li>
+                  <li>Fermenting Vessel</li>
+                  <li>Holding Tanks</li>
+                  <li>Mixing Tanks</li>
+                  <li>Shell & Tubes</li>
+                  <li>Skid Units etc.</li>
+                </ul>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Chemical Industry</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>Fermenting Vessel</li>
+                  <li>Holding Tank</li>
+                  <li>Mixing Tank</li>
+                  <li>Shell & Tubes</li>
+                  <li>Skid Units etc.</li>
+                </ul>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Waste Water Treatment</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>Evaporator</li>
+                  <li>Concentrator</li>
+                  <li>Crystallizers</li>
+                </ul>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Sugar Industry</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>Falling Film Evaporator</li>
+                  <li>Batch Pans</li>
+                  <li>Vertical Continuous Pans</li>
+                  <li>Crystallizers</li>
+                  <li>Sugar Melter</li>
+                  <li>Storage Tanks</li>
+                  <li>Sugar Silo</li>
+                </ul>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Paint Industry</h3>
+                <ul className="list-disc space-y-2 pl-5 text-slate-200">
+                  <li>Dissolvers</li>
+                  <li>Mixers etc.</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
