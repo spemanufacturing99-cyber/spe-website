@@ -142,14 +142,15 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="rounded-3xl overflow-hidden border border-slate-200 bg-white p-8 shadow-sm"
+            className="rounded-3xl relative w-76.5 overflow-hidden border border-slate-200 bg-white p-8 shadow-sm"
           >
-            <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-slate-200 shadow-inner">
+            <div className="relative h-84  relative w-60 overflow-hidden rounded-3xl bg-slate-200 shadow-inner">
               <Image
-                src="/md-photo-placeholder.jpg"
+                src="/md_photo.jpeg"
                 alt="MD photo"
                 fill
                 className="object-cover"
+    
               />
             </div>
            
