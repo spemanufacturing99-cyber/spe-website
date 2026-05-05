@@ -31,7 +31,6 @@ export async function GET(
       ...product,
       _id: product._id.toString(),
       createdAt: product.createdAt?.toISOString(),
-      updatedAt: product.updatedAt?.toISOString(),
     };
 
     return NextResponse.json(serializedProduct);
