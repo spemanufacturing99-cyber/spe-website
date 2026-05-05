@@ -1,46 +1,65 @@
-import React from "react";
-import { connectDB } from "@/lib/mongodb";
-import Service from "@/models/Service";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import ProductGallery from "@/components/ProductGallery";
+import { useParams } from "next/navigation";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  await connectDB();
-  let doc = await Service.findOne({ slug, category: 'Products' }).lean();
-  if (!doc) {
-    // Case-insensitive fallback
-    doc = await Service.findOne({ slug: { $regex: `^${slug}$`, $options: 'i' }, category: 'Products' }).lean();
-  }
-  if (!doc) return { title: 'Product — SPE' };
-  return {
-    title: doc.title,
-    description: doc.excerpt || doc.longDescription?.[0] || '',
-    openGraph: {
-      title: doc.title,
-      description: doc.excerpt || '',
-      images: doc.images && doc.images.length > 0 ? [doc.images[0]] : undefined,
-    }
-  };
+interface Product {
+  _id: string;
+  slug: string;
+  title: string;
+  excerpt?: string;
+  longDescription?: string[];
+  features?: string[];
+  specs?: { label: string; value: string }[];
+  images?: string[];
 }
 
-type Props = { params: Promise<{ slug: string }> };
+export default function ProductPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-export default async function ProductPage({ params }: Props) {
-  const { slug } = await params;
-  await connectDB();
-  console.log('[ProductPage] Looking for slug:', slug);
-  let product = await Service.findOne({ slug, category: 'Products' }).lean();
-  console.log('[ProductPage] Found by exact match:', !!product);
-  if (!product) {
-    // Case-insensitive fallback
-    product = await Service.findOne({ slug: { $regex: `^${slug}$`, $options: 'i' }, category: 'Products' }).lean();
-    console.log('[ProductPage] Found by regex:', !!product);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`/api/products/${slug}`);
+        if (response.ok) {
+          const data = await response.json();
+          setProduct(data);
+        } else {
+          setError('Product not found');
+        }
+      } catch (err) {
+        console.error('Error fetching product:', err);
+        setError('Failed to load product');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (slug) {
+      fetchProduct();
+    }
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center p-12">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading product...</p>
+        </div>
+      </main>
+    );
   }
 
-  if (!product) {
-    console.log('[ProductPage] No product found, returning 404');
+  if (error || !product) {
     return (
       <main className="min-h-screen flex items-center justify-center p-12">
         <div className="text-center">
@@ -55,52 +74,120 @@ export default async function ProductPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-20">
-      <div className="max-w-4xl mx-auto px-6">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold">{product.title}</h1>
-          <p className="text-slate-600 mt-2">{product.excerpt}</p>
-        </header>
+    <main className="min-h-screen">
+      {/* ================= HERO ================= */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        <div className="max-w-7xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-white">
+              {product.title}
+            </h1>
+            <p className="mt-6 text-gray-300 max-w-lg">
+              {product.excerpt || "High-quality fabricated and process equipment designed and manufactured by SPE for industrial applications."}
+            </p>
+            <div className="mt-8 flex gap-4">
+              <Link href="/contact" className="inline-block">
+                <motion.span whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }} className="px-8 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center">Request Quote</motion.span>
+              </Link>
+              <Link href="/products" className="inline-block">
+                <motion.span whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }} className="px-8 py-3 rounded-lg border-2 border-white text-white text-sm font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center justify-center">View All Products</motion.span>
+              </Link>
+            </div>
+          </motion.div>
 
-        <div className="mb-6">
-          <ProductGallery images={product.images} />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <Image
+              src={product.images && product.images[0] ? product.images[0] : "/precision-metal-chain.png"}
+              alt={product.title}
+              width={600}
+              height={600}
+              className="rounded-3xl shadow-2xl object-cover"
+            />
+          </motion.div>
         </div>
+      </section>
 
-        <section className="prose max-w-none">
-          {product.longDescription && product.longDescription.map((p: string, idx: number) => (
-            <p key={idx} className="text-slate-700">{p}</p>
-          ))}
-        </section>
+      {/* ================= PRODUCT DETAILS ================= */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Product Gallery */}
+            <div>
+              <ProductGallery images={product.images} />
+            </div>
 
-        {product.features && product.features.length > 0 && (
-          <div className="mt-8">
-            <h3 className="font-semibold text-xl mb-3">Key Features</h3>
-            <ul className="list-disc ml-6 text-slate-700 space-y-2">
-              {product.features.map((f: string) => <li key={f}>{f}</li>)}
-            </ul>
-          </div>
-        )}
-
-        {product.specs && product.specs.length > 0 && (
-          <div className="mt-8 bg-white p-4 rounded-xl shadow">
-            <h4 className="font-semibold mb-3">Specifications</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {product.specs.map((s: any) => (
-                <div key={s.label} className="text-sm text-slate-700">
-                  <div className="font-medium">{s.label}</div>
-                  <div className="text-slate-600">{s.value}</div>
+            {/* Product Information */}
+            <div className="space-y-8">
+              {product.longDescription && product.longDescription.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900 mb-4">Product Description</h2>
+                  <div className="prose max-w-none text-slate-700">
+                    {product.longDescription.map((p: string, idx: number) => (
+                      <p key={idx} className="mb-4 leading-relaxed">{p}</p>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              )}
+
+              {product.features && product.features.length > 0 && (
+                <div>
+                  <h3 className="text-xl font-semibold text-slate-900 mb-4">Key Features</h3>
+                  <ul className="space-y-3">
+                    {product.features.map((feature: string, index: number) => (
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="flex items-start gap-3"
+                      >
+                        <span className="text-blue-600 font-bold text-lg mt-1">•</span>
+                        <span className="text-slate-700 leading-relaxed">{feature}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {product.specs && product.specs.length > 0 && (
+                <div className="bg-white p-6 rounded-xl shadow-sm">
+                  <h4 className="text-lg font-semibold text-slate-900 mb-4">Specifications</h4>
+                  <div className="grid grid-cols-1 gap-3">
+                    {product.specs.map((spec: any, index: number) => (
+                      <div key={index} className="flex justify-between py-2 border-b border-slate-100 last:border-b-0">
+                        <span className="font-medium text-slate-700">{spec.label}</span>
+                        <span className="text-slate-600">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex flex-wrap gap-4 pt-6">
+                <Link href="/contact" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                  Request Quote
+                </Link>
+                <Link href="/products" className="inline-block bg-slate-100 text-slate-700 px-6 py-3 rounded-lg font-medium hover:bg-slate-200 transition-colors">
+                  Back to Products
+                </Link>
+                <Link href={`/products/${product.slug}/print`} className="inline-block bg-slate-100 text-slate-700 px-6 py-3 rounded-lg font-medium hover:bg-slate-200 transition-colors">
+                  Download PDF
+                </Link>
+              </div>
             </div>
           </div>
-        )}
-
-        <div className="mt-10 flex gap-4">
-          <Link href="/contact" className="inline-block bg-blue-600 text-white px-5 py-3 rounded-lg font-medium">Request Quote</Link>
-          <Link href="/products" className="inline-block text-slate-600 px-4 py-3 rounded-lg">Back to products</Link>
-          <Link href={`/products/${product.slug}/print`} className="inline-block bg-slate-100 text-slate-800 px-4 py-3 rounded-lg">Download / Print (PDF)</Link>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
