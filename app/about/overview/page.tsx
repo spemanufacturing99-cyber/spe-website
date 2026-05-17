@@ -58,15 +58,10 @@ return (
             className="rounded-3xl relative w-76.5 overflow-hidden border border-slate-200 bg-white p-8 shadow-sm"
           >
             <div className="relative h-84  relative w-60 overflow-hidden rounded-3xl bg-slate-200 shadow-inner">
-              <Image
-                src="/"
-                alt="MD photo"
-                fill
-                className="object-cover"
-    
-              />
+             <div style={{ margin: "50% auto" }} className="flex h-32 w-32 items-center justify-center rounded-full bg-slate-800 text-4xl font-bold text-white shadow-lg">
+                MD
             </div>
-           
+           </div>
           </motion.div>
         </div>
       </section>

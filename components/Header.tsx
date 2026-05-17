@@ -14,7 +14,7 @@ type MenuItem = {
 const menuStructure: MenuItem[] = [
   {
     title: "About us",
-    path: "/about",
+    path: "/#",
     children: [
       { title: "Overview", path: "/about/overview" },
       { title: "MD Massage", path: "/about/md-massage" },
@@ -33,35 +33,22 @@ const menuStructure: MenuItem[] = [
       {
         title: "Welding",
         path: "/services",
-        children: [
-          { title: "TIG Welding", path: "/services/tig-welding" },
-          { title: "Welding Services", path: "/services/welding-services" },
-          { title: "Stainless Steel Welding", path: "/services/stainless-steel-welding" },
-        ],
+       
       },
       {
         title: "Fabrication & Erection",
         path: "/services",
-        children: [
-          { title: "Structural Fabrication", path: "/services/structural-fabrication" },
-          { title: "Structural Steel Fabrication", path: "/services/structural-steel-fabrication" },
-          { title: "Carbon Steel Fabrication", path: "/services/carbon-steel-fabrication" },
-        ],
+        
       },
       {
         title: "Machining Services",
         path: "/services",
-        children: [
-          { title: "Stainless Steel Machining", path: "/services/stainless-steel-machining" },
-          { title: "CNC Machining", path: "/services/cnc-machining" },
-        ],
+        
       },
       {
         title: "Assembling & Finishing",
-        path: "/services",
-        children: [
-          { title: "Assembly & Finishing", path: "/services#maintenance-&-support" },
-        ],
+        path: "/services#maintenance-&-support",
+       
       },
     ],
   },
