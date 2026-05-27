@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Precision Pen Manufacturing",
+  title: "Satnam Process Engineering",
   description: "High-quality pen manufacturing & OEM solutions",
 };
 
