@@ -25,31 +25,30 @@ const menuStructure: MenuItem[] = [
       { title: "Our Strengths", path: "/about/our-strengths" },
     ],
   },
-   { title: "Business Verticles", path: "/business-verticles", children: [] },
+  {
+    title: "Business Verticles",
+    path: "/business-verticles",
+    children: [
+      { title: "Beverage Industry", path: "/business-verticles/beverage-industry" },
+      { title: "Dairy Industry", path: "/business-verticles/dairy-industry" },
+      { title: "Food Industry", path: "/business-verticles/food-industry" },
+      { title: "Pharmaceutical Industry", path: "/business-verticles/pharmaceutical-industry" },
+      { title: "Chemical Industry", path: "/business-verticles/chemical-industry" },
+      { title: "Waste Water Treatment", path: "/business-verticles/waste-water-treatment" },
+      { title: "Sugar Industry", path: "/business-verticles/sugar-industry" },
+      { title: "Paint Industry", path: "/business-verticles/paint-industry" },
+    ],
+  },
   {
     title: "Services",
     path: "/services",
     children: [
-      {
-        title: "Welding",
-        path: "/services",
-       
-      },
-      {
-        title: "Fabrication & Erection",
-        path: "/services",
-        
-      },
-      {
-        title: "Machining Services",
-        path: "/services",
-        
-      },
-      {
-        title: "Assembling & Finishing",
-        path: "/services#maintenance-&-support",
-       
-      },
+      { title: "Project Engineering and Management", path: "/services/project-engineering-and-management" },
+      { title: "Equipment Manufacturing", path: "/services/equipment-manufacturing" },
+      { title: "Complete Plant Automation", path: "/services/complete-plant-automation" },
+      { title: "Turnkey Contracting", path: "/services/turnkey-contracting" },
+      { title: "Structural Fabrication", path: "/services/structural-fabrication" },
+      { title: "Maintenance & Technical Support", path: "/services/maintenance-and-technical-support" },
     ],
   },
   {

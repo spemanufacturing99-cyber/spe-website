@@ -1,98 +1,8 @@
 "use client";
 
-import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-
-const businessVerticals = [
-  {
-    title: "Beverage Industry",
-    products: [
-      "Blending Vessel",
-      "CIP Vessels",
-      "Holding Vessel",
-      "Lauter Tun",
-      "Mash-Tun Vessel",
-      "Mixing Vessel",
-      "Process Vessel",
-      "Skid Units etc."
-    ]
-  },
-  {
-    title: "Dairy Industry",
-    products: [
-      "Storage Vessel",
-      "CIP Vessel",
-      "Cream Vessel",
-      "Cheese Vats",
-      "Cooking Vessel",
-      "Dyers",
-      "Powder Hopper",
-      "Skid Units",
-      "Silos etc."
-    ]
-  },
-  {
-    title: "Food Industry",
-    products: [
-      "Storage Vessel",
-      "CIP Vessel",
-      "Cooking Vessel",
-      "Dyers",
-      "Powder Hopper",
-      "Sauce Mix Vessel",
-      "Skid Units",
-      "Silos etc."
-    ]
-  },
-  {
-    title: "Pharmaceutical Industry",
-    products: [
-      "IP Vessel",
-      "Fermenting Vessel",
-      "Holding Tanks",
-      "Mixing Tanks",
-      "Shell & Tubes",
-      "Skid Units etc."
-    ]
-  },
-  {
-    title: "Chemical Industry",
-    products: [
-      "Fermenting Vessel",
-      "Holding Tank",
-      "Mixing Tank",
-      "Shell & Tubes",
-      "Skid Units etc."
-    ]
-  },
-  {
-    title: "Waste Water Treatment",
-    products: [
-      "Evaporator",
-      "Concentrator",
-      "Crystallizers"
-    ]
-  },
-  {
-    title: "Sugar Industry",
-    products: [
-      "Falling Film Evaporator",
-      "Batch Pans",
-      "Vertical Continuous Pans",
-      "Crystallizers",
-      "Sugar Melter",
-      "Storage Tanks",
-      "Sugar Silo"
-    ]
-  },
-  {
-    title: "Paint Industry",
-    products: [
-      "Dissolvers",
-      "Mixers etc."
-    ]
-  }
-];
+import { businessVerticals } from "../../lib/businessVerticals";
 
 export default function BusinessVerticals() {
   return (
@@ -159,6 +69,12 @@ export default function BusinessVerticals() {
                     </li>
                   ))}
                 </ul>
+                <Link
+                  href={`/business-verticles/${vertical.slug}`}
+                  className="mt-6 inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
+                >
+                  View details
+                </Link>
               </motion.div>
             ))}
           </div>

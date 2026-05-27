@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import QuoteForm from "@/components/QuoteForm";
+import { getServiceBySlug } from "../../../lib/servicesData";
 
 type Service = {
   title: string;
@@ -53,30 +54,17 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
           const data = await response.json();
           setService(data);
         } else {
-          // Fallback to hardcoded data for custom-pressure-vessels if API fails
-          if (slug === 'custom-pressure-vessels') {
+          // Fallback to local `servicesData` when API does not return a service
+          const local = getServiceBySlug(slug);
+          if (local) {
             setService({
-              title: "Custom Pressure Vessel Fabrication",
-              excerpt:
-                "End-to-end design, fabrication, testing, and erection of pressure vessels, reactors and storage tanks for critical industrial applications.",
-              longDescription: [
-                "We combine engineering expertise, stringent quality controls, and modern fabrication facilities to deliver bespoke pressure vessels tailored to client needs.",
-                "Our team handles design, material selection, fabrication, NDT, surface treatment, and full commissioning support. Every component is manufactured and tested to meet the highest international standards.",
-              ],
-              features: [
-                "Full turnkey manufacturing",
-                "Material traceability and certified welding",
-                "Advanced NDT (Ultrasonic, RT, MPI)",
-                "In-house machining and surface treatment",
-              ],
-              specs: [
-                { label: "Max Diameter", value: "4.5 m" },
-                { label: "Max Length", value: "18 m" },
-                { label: "Max Weight", value: "20 MT (single piece)" },
-                { label: "Materials", value: "Stainless Steel, Carbon Steel, Duplex" },
-              ],
-              images: ["/the-art-and-science.png", "/precision-metal-chain.png", "/certified-welding.png"],
-            });
+              title: local.title,
+              excerpt: local.excerpt,
+              longDescription: local.longDescription || [],
+              features: local.features || [],
+              specs: local.specs || [],
+              images: local.images || ["/precision-metal-chain.png"],
+            } as any);
           }
         }
       } catch (error) {
@@ -153,30 +141,14 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                     </div>
                   </div>
 
-                  <div className="w-full md:w-64 rounded-lg overflow-hidden shadow-lg relative">
-                    <Image src={service.images[0]} alt={service.title} width={420} height={300} className="object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                  </div>
+
                 </div>
 
                 {/* ---- middle image (eye-catching) ---- */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.7 }}
-                  viewport={{ once: true }}
-                  className="mt-8 rounded-xl overflow-hidden shadow-2xl relative h-72"
-                >
-                  <Image src={service.images[1]} alt="Workshop" fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div className="absolute left-6 bottom-6 bg-white/90 text-slate-900 px-5 py-3 rounded-lg shadow-lg">
-                    <div className="text-sm font-semibold">Workshop Overview</div>
-                    <div className="text-xs text-slate-600">Modern machinery and organised production lines</div>
-                  </div>
-                </motion.div>
+
 
                 {/* ---- gallery ---- */}
-                <div className="mt-8">
+                <div hidden className="mt-8">
                   <h4 className="text-lg font-semibold mb-4">Gallery</h4>
                   <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                     {service.images.map((img, idx) => (
@@ -687,7 +659,7 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                     </motion.div>
                   </div>
 
-                  {/* ---- final image ---- */}
+                  {/* ---- final image ---- 
                   <motion.div
                     initial={{ opacity: 0, y: 6 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -698,6 +670,7 @@ export default function ServicePage({ params }: { params: Promise<{ slug: string
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                     <div className="absolute left-6 bottom-6 bg-white/90 text-slate-900 px-4 py-2 rounded-lg shadow">High precision welding & finishing</div>
                   </motion.div>
+                  */}
 
                   {/* Quote form and CTA */}
                   <div className="mt-8 grid md:grid-cols-2 gap-6 items-start">
