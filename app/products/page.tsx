@@ -3,48 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-
-interface Product {
-  _id: string;
-  slug: string;
-  title: string;
-  images?: string[];
-  excerpt?: string;
-  longDescription?: string[];
-  features?: string[];
-  items?: string[];
-}
+import { productsData } from "@/lib/productsData";
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/products');
-        if (response.ok) {
-          const data = await response.json();
-          setProducts(data);
-        }
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  const groups = products.map((p: Product) => ({
-    id: p.slug || p._id,
+  const groups = productsData.map((p) => ({
+    id: p.slug,
     slug: p.slug,
     title: p.title,
     image: (p.images && p.images[0]) || '/products/bulk-milk.svg',
-    short: p.excerpt || (p.longDescription && p.longDescription[0] ? (p.longDescription[0].slice(0, 160) + (p.longDescription[0].length > 160 ? '...' : '')) : ''),
-    items: p.features && p.features.length > 0 ? p.features.slice(0, 4) : (p.items || []),
+    short: p.excerpt,
+    items: p.features && p.features.length > 0 ? p.features.slice(0, 4) : [],
   }));
 
   return (
@@ -93,103 +61,95 @@ export default function ProductsPage() {
       {/* ================= PRODUCTS GRID ================= */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            </div>
-          ) : (
-            <>
-              <div className="grid gap-12">
-                {groups.map((product: any, index: number) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-white rounded-3xl shadow-lg overflow-hidden"
-                  >
-                    <div className="grid md:grid-cols-2 gap-0">
-                      {/* Product Info */}
-                      <div className="p-8 md:p-12 flex flex-col justify-center">
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                          {product.title}
-                        </h2>
-                        {product.short && (
-                          <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                            {product.short}
-                          </p>
-                        )}
-
-                        {/* Key Features */}
-                        {product.items && product.items.length > 0 && (
-                          <div>
-                            <h3 className="text-xl font-semibold text-slate-900 mb-4">Key Features</h3>
-                            <ul className="space-y-3">
-                              {product.items.map((feature: string, featureIndex: number) => (
-                                <motion.li
-                                  key={featureIndex}
-                                  initial={{ opacity: 0, x: -20 }}
-                                  whileInView={{ opacity: 1, x: 0 }}
-                                  transition={{ duration: 0.5, delay: featureIndex * 0.1 }}
-                                  viewport={{ once: true }}
-                                  className="flex items-start gap-3"
-                                >
-                                  <span className="text-blue-600 font-bold text-lg mt-1">•</span>
-                                  <span className="text-slate-700 leading-relaxed">{feature}</span>
-                                </motion.li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-
-                        <div className="mt-8">
-                          <Link
-                            href={`/products/${product.slug}`}
-                            className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                          >
-                            View Details
-                            <span>→</span>
-                          </Link>
-                        </div>
-                      </div>
-
-                      {/* Product Image */}
-                      <div className="relative h-80 md:h-auto">
-                        <Image
-                          src={product.image}
-                          alt={product.title}
-                          fill
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* CTA Section */}
+          <div className="grid gap-12">
+            {groups.map((product: any, index: number) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="mt-16 text-center bg-blue-50 rounded-2xl p-12"
+                className="bg-white rounded-3xl shadow-lg overflow-hidden"
               >
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Need Custom Solutions?</h3>
-                <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-                  Our engineering team can design and manufacture custom products tailored to your specific requirements.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                >
-                  Request Custom Quote
-                </Link>
+                <div className="grid md:grid-cols-2 gap-0">
+                  {/* Product Info */}
+                  <div className="p-8 md:p-12 flex flex-col justify-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                      {product.title}
+                    </h2>
+                    {product.short && (
+                      <p className="text-slate-600 text-lg leading-relaxed mb-6">
+                        {product.short}
+                      </p>
+                    )}
+
+                    {/* Key Features */}
+                    {product.items && product.items.length > 0 && (
+                      <div>
+                        <h3 className="text-xl font-semibold text-slate-900 mb-4">Key Features</h3>
+                        <ul className="space-y-3">
+                          {product.items.map((feature: string, featureIndex: number) => (
+                            <motion.li
+                              key={featureIndex}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.5, delay: featureIndex * 0.1 }}
+                              viewport={{ once: true }}
+                              className="flex items-start gap-3"
+                            >
+                              <span className="text-blue-600 font-bold text-lg mt-1">•</span>
+                              <span className="text-slate-700 leading-relaxed">{feature}</span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="mt-8">
+                      <Link
+                        href={`/products/${product.slug}`}
+                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                      >
+                        View Details
+                        <span>→</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Product Image */}
+                  <div className="relative h-80 md:h-auto">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                </div>
               </motion.div>
-            </>
-          )}
+            ))}
+          </div>
+
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center bg-blue-50 rounded-2xl p-12"
+          >
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Need Custom Solutions?</h3>
+            <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
+              Our engineering team can design and manufacture custom products tailored to your specific requirements.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Request Custom Quote
+            </Link>
+          </motion.div>
         </div>
       </section>
     </main>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 type MenuItem = {
   title: string;
@@ -55,9 +56,13 @@ const menuStructure: MenuItem[] = [
     title: "Products",
     path: "/products",
     children: [
-      { title: "Storage Tankers & Silos", path: "/products/storage-tankers-silos" },
-      { title: "Road Milk Tankers", path: "/products/road-milk-tankers" },
-      { title: "Hygienic Doors & Shoe Racks", path: "/products/hygienic-doors-racks" },
+      { title: "75M3 Powder Silo", path: "/products/75m3-powder-silo" },
+      { title: "Powder Hoppers for Milk Powder Plant", path: "/products/powder-hoppers-for-milk-powder-plant" },
+      { title: "Mixing Tank for Beverage", path: "/products/mixing-tank-for-beverage" },
+      { title: "Milk Process Tanks and CIP Tanks", path: "/products/milk-process-tanks-and-cip-tanks" },
+      { title: "YEAST TANKS", path: "/products/yeast-tanks" },
+      { title: "BLANDING TANKS", path: "/products/blanding-tanks" },
+      { title: "STORAGE SILO", path: "/products/storage-silo" },
     ],
   },
   {
@@ -87,6 +92,7 @@ const menuStructure: MenuItem[] = [
     title: "Resources",
     path: "/resources",
     children: [
+      { title: "Portfolio", path: "/portfolio" },
       { title: "Blogs", path: "/blog" },
       { title: "Media", path: "/media" },
       { title: "Download", path: "/Download" },
@@ -106,6 +112,7 @@ const slugify = (value: string) =>
     .replace(/^-+|-+$/g, "");
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMap, setOpenMap] = useState<Record<string, boolean>>({});
 
@@ -113,14 +120,26 @@ export default function Header() {
     setOpenMap((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const isActiveItem = (item: MenuItem) => {
+    if (item.path === "/#") {
+      return pathname?.startsWith("/about");
+    }
+    if (item.path === "/") {
+      return pathname === "/";
+    }
+    return pathname === item.path || pathname?.startsWith(`${item.path}/`);
+  };
+
+  const isActiveChild = (path: string) => pathname === path || pathname?.startsWith(`${path}/`);
+
   return (
-    <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold flex items-center gap-1">
           <Image
           src="/spe-logo.jpg"
-          alt="Pen"
+          alt="Satnam Process Engineering"
           width={150}
           height={100}
           className="rounded-3xl shadow-2xl object-cover"
@@ -134,7 +153,7 @@ export default function Header() {
               <li key={item.title} className="relative group">
                 <Link
                   href={item.path}
-                  className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-slate-700 hover:bg-gray-100 transition text-sm font-medium"
+                  className={`inline-flex items-center gap-1 px-3 py-2 rounded-full text-sm font-medium transition ${isActiveItem(item) ? 'bg-blue-600 text-white ring-1 ring-blue-300' : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'}`}
                 >
                   {item.title}
                   {item.children?.length ? (
@@ -142,18 +161,18 @@ export default function Header() {
                   ) : null}
                 </Link>
                 {item.children?.length ? (
-                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 mt-1 w-80 max-h-96 rounded-xl bg-white border border-gray-200 shadow-xl p-4 z-20 -translate-y-1 overflow-y-auto">
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 mt-1 w-96 max-h-96 rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl p-5 z-20 -translate-y-1 overflow-y-auto">
                     <div className="grid grid-cols-1 gap-4">
                       {item.children.map((child) => (
                         child.children?.length ? (
-                          <div key={child.title} className="space-y-2">
-                            <div className="text-sm font-semibold text-slate-900 px-2">{child.title}</div>
+                          <div key={child.title} className="space-y-2 border-l-2 border-blue-600 pl-3">
+                            <div className="text-sm font-semibold text-slate-900">{child.title}</div>
                             <div className="space-y-1">
                               {child.children.map((sub) => (
                                 <Link
                                   key={sub.title}
                                   href={sub.path}
-                                  className="block px-2 py-1 rounded-md text-xs md:text-sm text-slate-700 hover:bg-slate-100"
+                                  className={`block px-3 py-2 rounded-2xl text-xs md:text-sm transition ${isActiveChild(sub.path) ? 'bg-blue-50 text-blue-600 border-l-2 border-blue-600' : 'text-slate-700 hover:bg-slate-100'}`}
                                 >
                                   {sub.title}
                                 </Link>
@@ -164,7 +183,7 @@ export default function Header() {
                           <Link
                             key={child.title}
                             href={child.path}
-                            className="block px-2 py-1 rounded-md text-xs md:text-sm text-slate-700 hover:bg-slate-100"
+                            className={`block px-3 py-2 rounded-2xl text-xs md:text-sm transition ${isActiveChild(child.path) ? 'bg-blue-50 text-blue-600 border-l-2 border-blue-600 pl-2' : 'text-slate-700 hover:bg-slate-100'}`}
                           >
                             {child.title}
                           </Link>
@@ -189,7 +208,7 @@ export default function Header() {
         <motion.button
           onClick={() => setMobileOpen(!mobileOpen)}
           whileTap={{ scale: 0.95 }}
-          className="md:hidden text-2xl p-2 hover:bg-gray-100 rounded-lg transition"
+          className="md:hidden text-2xl p-2 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl border border-slate-200 transition"
         >
           ☰
         </motion.button>
@@ -203,22 +222,22 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white border-t overflow-hidden"
+            className="md:hidden bg-white border-t border-slate-200 overflow-hidden shadow-sm"
           >
-            <div className="px-4 py-6 space-y-3">
+            <div className="px-4 py-6 space-y-3 border-b border-slate-200">
               <Link
                 onClick={() => setMobileOpen(false)}
                 href="/"
-                className="block px-4 py-2 rounded-lg hover:bg-gray-100 transition"
+                className="block px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 transition"
               >
                 Home
               </Link>
 
               {menuStructure.map((item) => (
                 <div key={item.title}>
-                  <button
+                      <button
                     onClick={() => toggleMenu(item.title)}
-                    className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100 transition flex items-center justify-between"
+                    className={`w-full text-left px-4 py-2 rounded-xl border transition flex items-center justify-between ${isActiveItem(item) ? 'bg-blue-600 text-white border-blue-600' : 'border-slate-200 bg-white hover:bg-slate-100 text-slate-800'}`}
                   >
                     {item.title}
                     {item.children?.length ? (
@@ -230,14 +249,14 @@ export default function Header() {
                       {item.children.map((child) => (
                         child.children?.length ? (
                           <div key={child.title} className="space-y-1">
-                            <div className="px-4 py-2 text-sm font-semibold text-slate-900">{child.title}</div>
+                            <div className="px-4 py-2 text-sm font-semibold text-slate-900 border-l-2 border-blue-600 pl-3">{child.title}</div>
                             <div className="space-y-1">
                               {child.children.map((sub) => (
                                 <Link
                                   key={sub.title}
                                   href={sub.path}
                                   onClick={() => setMobileOpen(false)}
-                                  className="block px-4 py-2 rounded-lg text-sm text-slate-700 hover:bg-gray-100"
+                                  className={`block px-4 py-2 rounded-lg text-sm border-l-2 transition ${isActiveChild(sub.path) ? 'bg-blue-50 text-blue-600 border-blue-600' : 'text-slate-700 hover:bg-gray-100 border-transparent hover:border-slate-300'}`}
                                 >
                                   {sub.title}
                                 </Link>
@@ -249,7 +268,7 @@ export default function Header() {
                             key={child.title}
                             href={child.path}
                             onClick={() => setMobileOpen(false)}
-                            className="block px-4 py-2 rounded-lg text-sm text-slate-700 hover:bg-gray-100"
+                            className={`block px-4 py-2 rounded-lg text-sm border-l-2 transition ${isActiveChild(child.path) ? 'bg-blue-50 text-blue-600 border-blue-600' : 'text-slate-700 hover:bg-gray-100 border-transparent hover:border-slate-300'}`}
                           >
                             {child.title}
                           </Link>

@@ -6,9 +6,10 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import ProductGallery from "@/components/ProductGallery";
 import { useParams } from "next/navigation";
+import { findProductBySlug } from "@/lib/productsData";
 
 interface Product {
-  _id: string;
+  _id?: string;
   slug: string;
   title: string;
   excerpt?: string;
@@ -26,18 +27,26 @@ export default function ProductPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fallbackProduct = slug ? findProductBySlug(slug) : null;
+
     const fetchProduct = async () => {
       try {
         const response = await fetch(`/api/products/${slug}`);
         if (response.ok) {
           const data = await response.json();
           setProduct(data);
+        } else if (fallbackProduct) {
+          setProduct(fallbackProduct);
         } else {
           setError('Product not found');
         }
       } catch (err) {
         console.error('Error fetching product:', err);
-        setError('Failed to load product');
+        if (fallbackProduct) {
+          setProduct(fallbackProduct);
+        } else {
+          setError('Failed to load product');
+        }
       } finally {
         setLoading(false);
       }
@@ -45,6 +54,9 @@ export default function ProductPage() {
 
     if (slug) {
       fetchProduct();
+    } else {
+      setLoading(false);
+      setError('Product not found');
     }
   }, [slug]);
 

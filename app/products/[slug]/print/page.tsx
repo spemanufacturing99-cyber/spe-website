@@ -1,7 +1,7 @@
 import React from "react";
 import { connectDB } from "@/lib/mongodb";
 import Service from "@/models/Service";
-import Image from "next/image";
+import { findProductBySlug } from "@/lib/productsData";
 
 async function fetchProduct(slug: string) {
   await connectDB();
@@ -10,7 +10,10 @@ async function fetchProduct(slug: string) {
 
 export default async function PrintPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = await fetchProduct(slug);
+  let product: any = await fetchProduct(slug);
+  if (!product) {
+    product = findProductBySlug(slug);
+  }
   if (!product) return (<main className="p-12">Product not found</main>);
 
   return (

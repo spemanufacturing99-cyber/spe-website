@@ -28,9 +28,12 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-4">Services</h4>
           <ul className="space-y-2 text-sm">
-            <li>OEM Manufacturing</li>
-            <li>Custom Components</li>
-            <li>Bulk Production</li>
+            <li><Link href="/services/project-engineering-and-management">Project Engineering and Management</Link></li>
+            <li><Link href="/services/equipment-manufacturing">Equipment Manufacturing</Link></li>
+            <li><Link href="/services/complete-plant-automation">Complete Plant Automation</Link></li>
+            <li><Link href="/services/turnkey-contracting">Turnkey Contracting</Link></li>
+            <li><Link href="/services/structural-fabrication">Structural Fabrication</Link></li>
+            <li><Link href="/services/maintenance-and-technical-support">Maintenance & Technical Support</Link></li>
           </ul>
         </div>
 
@@ -49,7 +52,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10 text-center py-6 text-sm">
-        © {new Date().getFullYear()} PENMFG. All rights reserved.
+        © {new Date().getFullYear()} Satnam Process Engineering. All rights reserved.
       </div>
     </footer>
   );
