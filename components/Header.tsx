@@ -140,7 +140,7 @@ export default function Header() {
                   ) : null}
                 </Link>
                 {item.children?.length ? (
-                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 mt-1 w-96 max-h-96 rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl p-5 z-20 -translate-y-1 overflow-y-auto">
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 mt-1 w-96 max-h-96 rounded-3xl bg-white border border-slate-200 shadow-2xl p-5 z-20 -translate-y-1 overflow-y-auto">
                     <div className="grid grid-cols-1 gap-4">
                       {item.children.map((child) => (
                         child.children?.length ? (
@@ -151,7 +151,7 @@ export default function Header() {
                                 <Link
                                   key={sub.title}
                                   href={sub.path}
-                                  className={`block px-3 py-2 rounded-2xl text-xs md:text-sm transition ${isActiveChild(sub.path) ? 'bg-blue-50 text-blue-600 border-l-2 border-blue-600' : 'text-slate-700 hover:bg-slate-100'}`}
+                                  className={`block px-3 py-2 rounded-2xl text-xs md:text-sm transition ${isActiveChild(sub.path) ? 'bg-blue-600 text-white font-semibold shadow-md' : 'text-slate-700 hover:bg-blue-100 hover:text-blue-700'}`}
                                 >
                                   {sub.title}
                                 </Link>
@@ -162,7 +162,7 @@ export default function Header() {
                           <Link
                             key={child.title}
                             href={child.path}
-                            className={`block px-3 py-2 rounded-2xl text-xs md:text-sm transition ${isActiveChild(child.path) ? 'bg-blue-50 text-blue-600 border-l-2 border-blue-600 pl-2' : 'text-slate-700 hover:bg-slate-100'}`}
+                            className={`block px-3 py-2 rounded-2xl text-xs md:text-sm transition ${isActiveChild(child.path) ? 'bg-blue-600 text-white font-semibold shadow-md' : 'text-slate-700 hover:bg-blue-100 hover:text-blue-700'}`}
                           >
                             {child.title}
                           </Link>
