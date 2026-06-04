@@ -4,8 +4,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Satnam Process Engineering",
-  description: "High-quality pen manufacturing & OEM solutions",
+  title: "Satnam Process Engineering | Industrial EPC, Fabrication & Automation",
+  description:
+    "Satnam Process Engineering delivers turnkey industrial fabrication, process equipment, and automation solutions for global process industries.",
 };
 
 export default function RootLayout({ 

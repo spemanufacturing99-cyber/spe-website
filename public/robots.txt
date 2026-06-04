@@ -1,0 +1,6 @@
+# Update the sitemap URL below to your production domain before deployment.
+User-agent: *
+Allow: /
+
+# Replace example.com with your actual site domain.
+Sitemap: https://www.satnamprocessengg.com/sitemap.xml

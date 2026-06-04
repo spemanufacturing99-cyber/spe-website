@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Update all <loc> URLs to your production domain when you deploy -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.satnamprocessengg.com/</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/about</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/contact</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/blog</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/services</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/products</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/industries</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/materials</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/media</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/portfolio</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/quality</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/careers</loc>
+  </url>
+  <url>
+    <loc>https://www.satnamprocessengg.com/Download</loc>
+  </url>
+</urlset>

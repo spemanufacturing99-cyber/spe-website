@@ -7,6 +7,12 @@ import SupplyChainRisk from "@/components/SupplyChainRisk";
 import QuoteForm from "@/components/QuoteForm";
 import Clients from "@/components/Clients";
 
+export const metadata = {
+  title: "Satnam Process Engineering | Industrial EPC, Fabrication & Automation",
+  description:
+    "Family-owned engineering specialists delivering turnkey process plants, custom equipment, and industrial automation for chemical, pharmaceutical, food, wastewater, and energy industries.",
+};
+
 function CounterNumber({ end, duration = 2 }: { end: number; duration?: number }) {
   const [count, setCount] = useState(0);
 

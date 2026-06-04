@@ -101,7 +101,7 @@ export const businessVerticals: BusinessVertical[] = [
     products: [
       "Falling Film Evaporator",
       "Batch Pans",
-      "Vertical Continuous Pans",
+      "Circulators",
       "Crystallizers",
       "Sugar Melter",
       "Storage Tanks",
